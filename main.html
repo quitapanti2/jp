@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--
 <html lang="en">
   <head>
     <!-- Basic Meta -->
@@ -313,4 +314,335 @@
       };
     //--></script>
   </body>
+</html>
+
+-->
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under construction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #FFD700;
+            --dark-gold: #C8B070;
+            --parchment: #F5EEDC;
+            --dark-bg: #121212;
+            --border-color: #4A4130;
+            --highlight: rgba(255, 215, 0, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--dark-bg) url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--parchment);
+            font-family: 'Kanit', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(10, 10, 10, 0.85);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            margin: 0 0 1.5rem 0;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .info-container {
+            margin: 1.5rem 0;
+        }
+
+        .info-item {
+            margin: 1.5rem 0;
+            position: relative;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-item:hover {
+            background-color: var(--highlight);
+        }
+
+        .info-item.copyable::after {
+            content: '\f0c5';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-gold);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .info-item:hover::after {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        .info-label {
+            display: block;
+            color: var(--dark-gold);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .info-value {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--parchment);
+            font-weight: 400;
+            word-break: break-word;
+        }
+
+        .qr-container {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .qr-label {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark-gold);
+        }
+
+        .notification {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: var(--gold);
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .footer {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--dark-gold);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background-color: rgba(200, 176, 112, 0.2);
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                width: 85%;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .info-value {
+                font-size: 1.2rem;
+            }
+            
+            .qr-code {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-switcher">
+            <button class="lang-btn active" data-lang="th">ไทย</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        
+        <h1 data-th="เว็บไซต์อยู่ระหว่างการปรับปรุง ลองโทรมานัดเวลาปรินต์/รับงานได้" data-en="Site is under maintainance, but feel free to call or hit us up on LINE chat.">เว็บไซต์อยู่ระหว่างการปรับปรุง ลองโทรมานัดเวลาปรินต์/รับงานได้</h1>
+        
+        <div class="info-container">
+            <div class="info-item copyable" onclick="copyToClipboard('0840257778', 'phone')">
+                <span class="info-label" data-th="โทรศัพท์" data-en="PHONE">โทรศัพท์</span>
+                <span class="info-value" id="phone">084-025-7778</span>
+            </div>
+            
+            <div class="info-item copyable" onclick="copyToClipboard('your.email@example.com', 'email')">
+                <span class="info-label" data-th="อีเมล" data-en="EMAIL">อีเมล</span>
+                <span class="info-value" id="email">jimmprint.pinklao@gmail.com</span>
+            </div>
+
+            <div class="info-item copyable" onclick="copyToClipboard('@596ysfkn', 'line')">
+                <span class="info-label" data-th="ไลน์ไอดี" data-en="LINE ID">ไลน์ไอดี</span>
+                <span class="info-value" id="line">@596ysfkn</span>
+            </div>
+            <div class="qr-container">
+                <div class="qr-code">
+                    <img src="<img src="images/lineqr.png" alt="line" style="width:100%;height:100%;">
+                </div>
+                <div class="qr-label" data-th="สแกนเพื่อเพิ่มเพื่อนในไลน์" data-en="Scan to add on LINE">
+                    สแกนเพื่อเพิ่มเพื่อนในไลน์
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer" data-th="กดเพื่อคัดลอกข้อมูลติดต่อ" data-en="Click to copy contact information">
+            กดเพื่อคัดลอกข้อมูลติดต่อ
+        </div>
+    </div>
+    
+    <div class="notification" id="notification" data-th="คัดลอกแล้ว" data-en="Copied!">คัดลอกแล้ว</div>
+
+    <script>
+        // Language switching functionality
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.dataset.lang;
+                
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update all elements with data attributes
+                document.querySelectorAll('[data-th], [data-en]').forEach(el => {
+                    if (el.dataset[lang]) {
+                        el.textContent = el.dataset[lang];
+                    }
+                });
+            });
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text, elementId) {
+            const element = document.getElementById(elementId);
+            let textToCopy = element ? element.textContent : text;
+            
+            // Remove hyphens from phone number when copying
+            if (elementId === 'phone') {
+                textToCopy = textToCopy.replace(/-/g, '');
+            }
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showNotification();
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed';
+                document.body.appendChild(textarea);
+                textarea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    showNotification();
+                } catch (err) {
+                    console.error('Fallback copy failed: ', err);
+                }
+                
+                document.body.removeChild(textarea);
+            });
+        }
+        
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.opacity = '1';
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+            }, 2000);
+        }
+    </script>
+</body>
 </html>
