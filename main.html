@@ -80,7 +80,6 @@
             margin: 1.5rem 0;
             position: relative;
             padding: 0.8rem 1rem;
-            cursor: pointer;
             transition: all 0.3s ease;
             border-radius: 4px;
             display: flex;
@@ -88,26 +87,43 @@
             align-items: center;
         }
 
-        .info-item:hover {
-            background-color: var(--highlight);
+        .info-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 10px;
         }
 
-        .info-item.copyable::after {
-            content: '\f0c5';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--dark-gold);
-            font-size: 0.9rem;
-            opacity: 0.7;
+        .info-value {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--parchment);
+            font-weight: 400;
+            word-break: break-word;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-        .info-item:hover::after {
-            opacity: 1;
+        .info-value:hover {
             color: var(--gold);
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--dark-gold);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        .copy-btn:hover {
+            color: var(--gold);
+            background-color: rgba(255, 215, 0, 0.1);
         }
 
         .info-label {
@@ -118,14 +134,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 300;
-        }
-
-        .info-value {
-            display: block;
-            font-size: 1.4rem;
-            color: var(--parchment);
-            font-weight: 400;
-            word-break: break-word;
         }
 
         .qr-container {
@@ -233,23 +241,38 @@
         <h1 data-th="เว็บไซต์อยู่ระหว่างการปรับปรุง ลองโทรมานัดเวลาปรินต์/รับงานได้" data-en="Site is under maintainance, but feel free to call or hit us up on LINE chat.">เว็บไซต์อยู่ระหว่างการปรับปรุง ลองโทรมานัดเวลาปรินต์/รับงานได้</h1>
         
         <div class="info-container">
-            <div class="info-item copyable" onclick="copyToClipboard('0840257778', 'phone')">
+            <div class="info-item">
                 <span class="info-label" data-th="โทรศัพท์" data-en="PHONE">โทรศัพท์</span>
-                <span class="info-value" id="phone">084-025-7778</span>
+                <div class="info-content">
+                    <span class="info-value" id="phone" onclick="openPhone('084-025-7778')">084-025-7778</span>
+                    <button class="copy-btn" onclick="copyToClipboard('0840257778', 'phone')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
             </div>
             
-            <div class="info-item copyable" onclick="copyToClipboard('your.email@example.com', 'email')">
+            <div class="info-item">
                 <span class="info-label" data-th="อีเมล" data-en="EMAIL">อีเมล</span>
-                <span class="info-value" id="email">jimmprint.pinklao@gmail.com</span>
+                <div class="info-content">
+                    <span class="info-value" id="email" onclick="openEmail('jimmprint.pinklao@gmail.com')">jimmprint.pinklao@gmail.com</span>
+                    <button class="copy-btn" onclick="copyToClipboard('jimmprint.pinklao@gmail.com', 'email')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="info-item copyable" onclick="copyToClipboard('@596ysfkn', 'line')">
+            <div class="info-item">
                 <span class="info-label" data-th="ไลน์ไอดี" data-en="LINE ID">ไลน์ไอดี</span>
-                <span class="info-value" id="line">@596ysfkn</span>
+                <div class="info-content">
+                    <span class="info-value" id="line" onclick="openLine('@596ysfkn')">@596ysfkn</span>
+                    <button class="copy-btn" onclick="copyToClipboard('@596ysfkn', 'line')">
+                        <i class="far fa-copy"></i>
+                    </button>
+                </div>
             </div>
             <div class="qr-container">
                 <div class="qr-code">
-                    <img src="<img src="images/lineqr.png" alt="line" style="width:100%;height:100%;">
+                    <img src="images/lineqr.png" alt="line" style="width:100%;height:100%;">
                 </div>
                 <div class="qr-label" data-th="สแกนเพื่อเพิ่มเพื่อนในไลน์" data-en="Scan to add on LINE">
                     สแกนเพื่อเพิ่มเพื่อนในไลน์
@@ -257,8 +280,8 @@
             </div>
         </div>
         
-        <div class="footer" data-th="กดเพื่อคัดลอกข้อมูลติดต่อ" data-en="Click to copy contact information">
-            กดเพื่อคัดลอกข้อมูลติดต่อ
+        <div class="footer" data-th="คลิกที่ข้อมูลเพื่อเปิดลิงก์ หรือปุ่มเพื่อคัดลอก" data-en="Click on info to open link, or button to copy">
+            คลิกที่ข้อมูลเพื่อเปิดลิงก์ หรือปุ่มเพื่อคัดลอก
         </div>
     </div>
     
@@ -283,6 +306,23 @@
             });
         });
 
+        // Open phone app
+        function openPhone(phoneNumber) {
+            const cleanNumber = phoneNumber.replace(/-/g, '');
+            window.location.href = `tel:${cleanNumber}`;
+        }
+        
+        // Open email client
+        function openEmail(email) {
+            window.location.href = `mailto:${email}`;
+        }
+        
+        // Open LINE
+       function openLine(lineId) {
+            // Keep the @ symbol in the URL (LINE actually handles this correctly)
+            window.open(`https://line.me/R/ti/p/${lineId}`, '_blank');
+        }
+
         // Copy to clipboard function
         function copyToClipboard(text, elementId) {
             const element = document.getElementById(elementId);
@@ -292,6 +332,9 @@
             if (elementId === 'phone') {
                 textToCopy = textToCopy.replace(/-/g, '');
             }
+            
+            // Prevent the click event from bubbling up to the parent
+            event.stopPropagation();
             
             navigator.clipboard.writeText(textToCopy).then(() => {
                 showNotification();
